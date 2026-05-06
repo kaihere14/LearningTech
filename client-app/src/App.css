@@ -1,0 +1,97 @@
+:root {
+  --page-bg: #ece9e2;
+  --card-bg: #f6f4ef;
+  --line: #d6d1c6;
+  --text: #24303a;
+  --muted: #5b6770;
+  --done-bg: #dce7db;
+  --todo-bg: #efe5d7;
+  --done-text: #2f5a34;
+  --todo-text: #815a25;
+}
+
+.app {
+  width: min(760px, 100%);
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 10px 24px rgba(65, 57, 43, 0.08);
+}
+
+.title { margin: 0 0 8px; font-size: 1.6rem; }
+.subtitle { margin: 0 0 18px; color: var(--muted); }
+
+.add-task { display: flex; gap: 10px; margin-bottom: 14px; }
+.task-input {
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--text);
+  background: #f7f4ee;
+}
+
+.task-button {
+  border: 1px solid #b9b29f;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 600;
+  color: #39434a;
+  background: #e7e1d4;
+  cursor: pointer;
+}
+
+.task-button.secondary { background: #e3ddd0; color: #2d4753; }
+
+.tasks { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #f2efe8;
+}
+
+.task-text { margin: 0; line-height: 1.35; word-break: break-word; }
+.source { color: var(--muted); font-size: 0.85rem; }
+
+.status {
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 5px 10px;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.status.done { background: var(--done-bg); color: var(--done-text); }
+.status.todo { background: var(--todo-bg); color: var(--todo-text); }
+
+.delete-button {
+  border: 1px solid #cfb8b0;
+  border-radius: 8px;
+  padding: 6px 11px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #7b3f3a;
+  background: #f3e4df;
+  cursor: pointer;
+}
+
+.empty {
+  margin: 0;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  color: var(--muted);
+  background: #f1eee6;
+}
