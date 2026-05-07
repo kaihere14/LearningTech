@@ -1,3 +1,4 @@
+
 # ConvexDB Ecosystem
 
 [![Build Status](https://img.shields.io/badge/status-active-success.svg)](#)
@@ -30,23 +31,24 @@ The repository is organized into two primary domains:
 *   **Real-time Reactivity**: Automatic UI updates via Convex subscriptions.
 *   **Cross-Runtime Compatibility**: Seamless integration between Bun (Express API) and Node.js (RAG Server).
 *   **Type-Safe Database Access**: End-to-end TypeScript safety from Convex functions to the React frontend.
+*   **Automated PDF Ingestion**: CLI-based pipeline for loading, chunking, and indexing PDF documents.
+*   **Vector Search Integration**: High-performance retrieval using Qdrant vector store and Google Gemini embeddings.
 *   **External Bridge**: Ability to trigger Convex mutations from standard REST endpoints.
-*   **RAG Ready**: Dedicated infrastructure for processing and querying vector data.
 
 ---
-
 ## 🛠️ Tech Stack
 
 | Component | Technology |
 | :--- | :--- |
 | **Frontend** | React 19, Vite, TypeScript |
 | **Backend-as-a-Service** | Convex |
+| **Vector Database** | Qdrant |
+| **AI Framework** | LangChain, Google Gemini (Embeddings) |
 | **API Bridge** | Express, Bun, Dotenv |
 | **RAG Server** | Node.js, Express, TypeScript |
 | **Package Management** | npm / Bun |
 
 ---
-
 ## 🚦 Getting Started
 
 ### Prerequisites
@@ -54,43 +56,46 @@ The repository is organized into two primary domains:
 *   [Node.js](https://nodejs.org/) (v18+)
 *   [Bun](https://bun.sh/) (for the Express API)
 *   [Convex Account](https://www.convex.dev/)
+*   [Google AI API Key](https://aistudio.google.com/) (for Gemini embeddings)
 
 ### Installation & Setup
 
 1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/kaihere14/ConvexDB.git
-    cd ConvexDB
-    ```
+    bash
+    git clone https://github.com/kaihere14/LearningTech.git
+    cd LearningTech
+    
 
 2.  **Setup Convex Backend**
-    ```bash
+    bash
     cd Convex/convex-backend
     npm install
     npx convex dev # This will prompt you to create a project
-    ```
+    
 
 3.  **Setup Express API**
-    ```bash
+    bash
     cd ../express-api
     bun install
     cp .env.example .env.local # Ensure CONVEX_URL is set from your Convex dashboard
-    ```
+    
 
 4.  **Setup Client App**
-    ```bash
+    bash
     cd ../client-app
     npm install
-    ```
+    
 
 5.  **Setup RAG Server**
-    ```bash
+    bash
     cd ../../RAG/server
     npm install
-    ```
+    cp .env.example .env # Configure your Gemini and Qdrant keys
+    npm run ingest       # Process and index the initial PDF data
+    npm run dev          # Start the RAG HTTP server
+    
 
 ---
-
 ## 💻 Usage
 
 ### Running the Development Environment
@@ -130,17 +135,26 @@ curl -X POST http://localhost:3000/debug/add-task \
 ### Environment Variables
 
 **Express API (`Convex/express-api/.env.local`)**
-```env
+env
 CONVEX_URL=https://your-deployment-name.convex.cloud
 PORT=3000
 CLIENT_ORIGIN=http://localhost:5173
-```
+
+
+**RAG Server (`RAG/server/.env`)**
+env
+PORT=4000
+GEMINI_API_KEY=your_google_gemini_key
+QDRANT_ENDPOINT=your_qdrant_url
+QDRANT_API_KEY=your_qdrant_api_key
+QDRANT_COLLECTION=langchainjs-testing
+INGEST_SOURCE_PDF=./data/documents/arman_thakur_rag_data.pdf
+
 
 ---
-
 ## 📂 Directory Structure
 
-```
+
 .
 ├── Convex/
 │   ├── client-app/       # React + Vite Frontend
@@ -148,14 +162,18 @@ CLIENT_ORIGIN=http://localhost:5173
 │   └── express-api/      # Bun + Express Bridge
 └── RAG/
     └── server/           # TypeScript RAG Implementation
+        ├── data/         # Source PDF documents
         ├── src/
-        │   ├── index.ts  # Server Entry
-        │   └── scripts/  # Ingestion scripts
+        │   ├── application/    # Ingestion orchestration
+        │   ├── config/         # Environment configuration
+        │   ├── domain/         # Core types and interfaces
+        │   ├── infrastructure/ # Loaders, Embeddings, and VectorStore
+        │   ├── interfaces/     # CLI and HTTP (Express) entry points
+        │   └── index.ts        # Server Entry
         └── tsconfig.json
-```
+
 
 ---
-
 ## 🧪 Development
 
 ### Code Style
