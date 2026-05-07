@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "ingest": "ts-node-dev --transpile-only src/interfaces/cli/ingest.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "test": "echo \"No tests yet\""
@@ -14,7 +15,12 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@langchain/community": "^1.1.28",
+    "@langchain/google-genai": "^2.1.30",
+    "@langchain/qdrant": "^1.0.2",
+    "@langchain/textsplitters": "^1.0.1",
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1"
   },
   "devDependencies": {
